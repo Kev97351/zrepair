@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Réseaux Sociaux — Z'Repair</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cyan: #00f5ff;
+            --blue: #0066ff;
+            --dark: #020812;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--dark);
+            color: #e0f4ff;
+            font-family: 'Rajdhani', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0,245,255,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,245,255,0.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: repeating-linear-gradient(
+                0deg, transparent, transparent 2px,
+                rgba(0,0,0,0.07) 2px, rgba(0,0,0,0.07) 4px
+            );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* HEADER */
+        header {
+            position: relative; z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 4rem;
+            background: rgba(2,8,18,0.85);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(0,245,255,0.15);
+        }
+
+        .logo-text {
+            font-family: 'Orbitron', monospace;
+            font-weight: 900;
+            font-size: 1.8rem;
+            letter-spacing: 4px;
+            color: #fff;
+            text-shadow: 0 0 20px var(--cyan), 0 0 40px var(--cyan);
+            text-decoration: none;
+        }
+
+        .logo-text span { color: var(--cyan); }
+
+        .back-link {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover { color: var(--cyan); }
+
+        /* MAIN */
+        main {
+            position: relative; z-index: 2;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 5rem 2rem;
+        }
+
+        .glow-orb {
+            position: absolute;
+            width: 500px; height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0,102,255,0.15) 0%, transparent 70%);
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes pulse {
+            0%,100% { opacity: 0.6; transform: translate(-50%,-50%) scale(1); }
+            50% { opacity: 1; transform: translate(-50%,-50%) scale(1.12); }
+        }
+
+        .section-tag {
+            font-size: 0.75rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--cyan);
+            margin-bottom: 1rem;
+            display: block;
+            text-align: center;
+        }
+
+        h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 2px;
+            text-align: center;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 40px rgba(0,245,255,0.2);
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 1px;
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        /* CARDS */
+        .socials-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            width: 100%;
+            max-width: 480px;
+        }
+
+        .social-card {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.6rem 2rem;
+            background: rgba(0,245,255,0.03);
+            border: 1px solid rgba(0,245,255,0.12);
+            text-decoration: none;
+            color: #fff;
+            clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+            transition: all 0.3s;
+            overflow: hidden;
+            animation: fadeUp 0.6s ease both;
+        }
+
+        .social-card:nth-child(1) { animation-delay: 0.1s; }
+        .social-card:nth-child(2) { animation-delay: 0.2s; }
+        .social-card:nth-child(3) { animation-delay: 0.3s; }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(25px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .social-card::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            border-style: solid;
+            border-width: 0 16px 16px 0;
+            border-color: transparent rgba(0,245,255,0.25) transparent transparent;
+        }
+
+        .social-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+            transform: scaleX(0);
+            transition: transform 0.4s;
+        }
+
+        .social-card:hover {
+            border-color: rgba(0,245,255,0.4);
+            background: rgba(0,245,255,0.06);
+            transform: translateX(6px);
+            box-shadow: -4px 0 30px rgba(0,245,255,0.1);
+        }
+
+        .social-card:hover::after { transform: scaleX(1); }
+
+        .social-icon {
+            width: 52px; height: 52px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            border: 1px solid rgba(0,245,255,0.2);
+            background: rgba(0,245,255,0.06);
+            transition: box-shadow 0.3s;
+        }
+
+        .social-card:hover .social-icon {
+            box-shadow: 0 0 20px rgba(0,245,255,0.3);
+        }
+
+        .social-info { flex: 1; }
+
+        .social-name {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #fff;
+            display: block;
+        }
+
+        .social-handle {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 1px;
+            margin-top: 0.2rem;
+            display: block;
+        }
+
+        .social-arrow {
+            font-size: 1.2rem;
+            color: rgba(0,245,255,0.4);
+            transition: transform 0.3s, color 0.3s;
+        }
+
+        .social-card:hover .social-arrow {
+            transform: translateX(5px);
+            color: var(--cyan);
+        }
+
+        /* FOOTER */
+        footer {
+            position: relative; z-index: 2;
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid rgba(0,245,255,0.08);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.15);
+        }
+
+        @media (max-width: 600px) {
+            header { padding: 1rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo-text">Z'<span>REPAIR</span></a>
+        <a href="index.html" class="back-link">← Retour</a>
+    </header>
+
+    <main>
+        <div class="glow-orb"></div>
+
+        <span class="section-tag">// Retrouvez-nous en ligne</span>
+        <h2>Nos Réseaux Sociaux</h2>
+        <p class="subtitle">Suivez-nous pour les dernières actus, promos et conseils tech.</p>
+
+        <div class="socials-grid">
+
+            <a href="https://instagram.com/kevin_nelson973" target="_blank" class="social-card">
+                <div class="social-icon">📸</div>
+                <div class="social-info">
+                    <span class="social-name">Instagram</span>
+                    <span class="social-handle">@kevin_nelson973</span>
+                </div>
+                <span class="social-arrow">→</span>
+            </a>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 Z'Repair — Tous droits réservés</p>
+    </footer>
+
+</body>
+</html>
